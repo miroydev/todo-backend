@@ -34,17 +34,13 @@ public class RegistrationService implements IRegistrationService{
     @Override
     public void createUser(PostRegistrateUserRequest registrationRequest) {
 
-        System.out.println("AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
-
         if (existByEmail(registrationRequest.getEmail())){
             throw new registrationExepcion("This Email is already in use");
         }
 
-        System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
         // Encrypt password
         String encodedPassword = passwordEncoder.encode(registrationRequest.getPassword());
 
-        System.out.println("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
         // Get Current Date
         LocalDateTime dateTime = LocalDateTime.now();
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");

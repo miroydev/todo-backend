@@ -24,7 +24,6 @@ public class RegistrationController {
     public ResponseEntity<String> register(@RequestBody PostRegistrateUserRequest registrateUserRequest){
         
         try {
-            System.out.println("SIUUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
             registrationService.createUser(registrateUserRequest);
             return new ResponseEntity<>("User Created Successfully", HttpStatus.CREATED);
 
