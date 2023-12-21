@@ -4,5 +4,4 @@ import com.user.service.userservice.model.User.registration.PostRegistrateUserRe
 
 public interface IRegistrationService {
     void createUser(PostRegistrateUserRequest request);
-    Boolean existByEmail (String email);
 }

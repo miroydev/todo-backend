@@ -1,90 +1,63 @@
 package com.user.service.userservice.entities;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
-
-
-
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotBlank;
-import org.springframework.data.annotation.Id;
 
+import java.sql.Date;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 
-@Document(collection = "todo_users")
+@Entity
+@Table(name = "user_information")
 public class UserInformation {
-    
+
     @Id
-    private String id;
-
-    @NotBlank(message = "UserName cannot be empty")
-    @Field("user_name")
-    private String userName;
-
-    @NotBlank(message = "email cannot be empty")
-    @Field("user_email")
-    private String email;
-
-    @NotBlank(message = "HashPassword cannot be empty")
-    @Field("user_hashPassword")
-    private String HashPassword;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "userinformation_id")
+    private int id;
 
     @NotBlank(message = "fullName cannot be empty")
-    @Field("user_fullName")
+    @Column(name = "user_fullname")
     private String fullName;
 
     @NotBlank(message = "birthdate cannot be empty")
-    @Field("user_birthdate")
+    @Column(name = "user_birthdate")
     private String birthdate;
 
     @NotBlank(message = "Address cannot be empty")
-    @Field("user_address")
+    @Column(name = "user_address")
     private String address;
 
     @NotBlank(message = "gender cannot be empty")
-    @Field("user_gender")
+    @Column(name = "user_gender")
     private String gender;
     
-    @Field("creation_date")
-    private String creationDate;
+    @Transient
+    @Column(name = "creation_date")
+    private Date creationDate;
 
-    public UserInformation(@NotBlank(message = "UserName cannot be empty") String userName,
-            @NotBlank(message = "email cannot be empty") String email,
-            @NotBlank(message = "HashPassword cannot be empty") String hashPassword,
-            @NotBlank(message = "fullName cannot be empty") String fullName,
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "userinformation_id")
+    private UserCredentials credentials;
+
+    
+
+    public UserInformation(@NotBlank(message = "fullName cannot be empty") String fullName,
             @NotBlank(message = "birthdate cannot be empty") String birthdate,
             @NotBlank(message = "Address cannot be empty") String address,
-            @NotBlank(message = "gender cannot be empty") String gender, String creationDate) {
-        this.userName = userName;
-        this.email = email;
-        HashPassword = hashPassword;
+            @NotBlank(message = "gender cannot be empty") String gender) {
         this.fullName = fullName;
         this.birthdate = birthdate;
         this.address = address;
         this.gender = gender;
-        this.creationDate = creationDate;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getFullName() {
@@ -119,14 +92,11 @@ public class UserInformation {
         this.gender = gender;
     }
 
-    public String getCreationDate() {
-        return creationDate;
-    }
 
-    public void setCreationDate(String creationDate) {
-        this.creationDate = creationDate;
+
+    public void setCredentials(UserCredentials credentials) {
+        this.credentials = credentials;
     } 
 
     
-   
 }

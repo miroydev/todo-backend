@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.user.service.userservice.exeption.registrationExepcion;
+import com.user.service.userservice.exeption.RegistrationExepcion;
 import com.user.service.userservice.model.User.registration.PostRegistrateUserRequest;
 import com.user.service.userservice.service.registration.IRegistrationService;
 
@@ -27,7 +27,7 @@ public class RegistrationController {
             registrationService.createUser(registrateUserRequest);
             return new ResponseEntity<>("User Created Successfully", HttpStatus.CREATED);
 
-        }catch (registrationExepcion e) {
+        }catch (RegistrationExepcion e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         
         }catch (Exception e) {

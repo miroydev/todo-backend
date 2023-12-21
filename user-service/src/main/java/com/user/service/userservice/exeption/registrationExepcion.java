@@ -4,8 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class registrationExepcion extends RuntimeException{
-    public registrationExepcion(String cause) {
+public class RegistrationExepcion extends RuntimeException{
+    public RegistrationExepcion(String cause) {
         super(cause);
     }
 }
