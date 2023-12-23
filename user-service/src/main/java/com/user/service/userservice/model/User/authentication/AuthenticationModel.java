@@ -1,15 +1,11 @@
 package com.user.service.userservice.model.User.authentication;
 
 public class AuthenticationModel {
-    String username;
-    String password;
     String email;
+    String password;
 
 
     
-    public String getUsername() {
-        return username;
-    }
     public String getPassword() {
         return password;
     }

@@ -51,6 +51,15 @@ public class UserCredentials {
     }
 
 
-    
+    public String getEmail() {
+        return email;
+    }
+
+
+    public String getHashPassword() {
+        return HashPassword;
+    }
+
+
     
 }

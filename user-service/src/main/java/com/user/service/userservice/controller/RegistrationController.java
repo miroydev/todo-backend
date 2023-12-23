@@ -13,7 +13,7 @@ import com.user.service.userservice.exeption.RegistrationExepcion;
 import com.user.service.userservice.model.User.registration.PostRegistrateUserRequest;
 import com.user.service.userservice.service.registration.IRegistrationService;
 
-@RestController("/")
+@RestController
 public class RegistrationController {
 
     @Autowired
