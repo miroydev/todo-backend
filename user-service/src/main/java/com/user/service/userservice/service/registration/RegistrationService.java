@@ -1,13 +1,14 @@
 package com.user.service.userservice.service.registration;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.user.service.userservice.entities.UserCredentials;
 import com.user.service.userservice.entities.UserInformation;
-import com.user.service.userservice.exeption.RegistrationExepcion;
 import com.user.service.userservice.model.User.registration.PostRegistrateUserRequest;
+import com.user.service.userservice.model.User.registration.PostRegistrateUserResponse;
 import com.user.service.userservice.repository.CredentialsRepository;
 import com.user.service.userservice.repository.UserRepository;
 
@@ -37,37 +38,51 @@ public class RegistrationService implements IRegistrationService{
 
     @Override
     @Transactional
-    public void createUser(PostRegistrateUserRequest registrationRequest) {
+    public PostRegistrateUserResponse createUser(PostRegistrateUserRequest registrationRequest) {
+        
+        PostRegistrateUserResponse resp = new PostRegistrateUserResponse();
 
-        if (credentialsRepository.existsByEmail(registrationRequest.getEmail())){
-            throw new RegistrationExepcion("This Email is already in use");
+        try{
+
+            if (credentialsRepository.existsByEmail(registrationRequest.registrationInfo.getEmail()))
+            {
+                resp.setUserCreated(true);
+                resp.setMessage("Email alredy exist");
+                resp.setErrorCode(1);
+                return resp;
+            }
+
+
+            UserInformation newUser = new UserInformation(
+            registrationRequest.registrationInfo.getFullName(),
+            registrationRequest.registrationInfo.getBirthdate(),
+            registrationRequest.registrationInfo.getAddress(),
+            registrationRequest.registrationInfo.getGender());
+            
+            // Encrypt password
+            String encodedPassword = passwordEncoder.encode(registrationRequest.registrationInfo.getPassword());
+
+            UserCredentials userCredentials = new UserCredentials(
+                registrationRequest.registrationInfo.getUserName(),
+                registrationRequest.registrationInfo.getEmail(),
+                encodedPassword
+                );
+
+            newUser.setCredentials(userCredentials);
+            userCredentials.setUserInformation(newUser);
+        
+            //Asociate credentials
+            userRepository.save(newUser);
+
+        }catch (Exception e) {
+            return new PostRegistrateUserResponse(false, e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR.value());
         }
 
-        if (credentialsRepository.existsByUserName(registrationRequest.getUserName())){
-            throw new RegistrationExepcion("This UserName is already in use");
-        }
+        resp.setUserCreated(true);
+        resp.setMessage("User Created");
+        resp.setErrorCode(0);
+        return resp;
 
-        UserInformation newUser = new UserInformation(
-            registrationRequest.getFullName(),
-            registrationRequest.getBirthdate(),
-            registrationRequest.getAddress(),
-            registrationRequest.getGender());
-
-        // Encrypt password
-        String encodedPassword = passwordEncoder.encode(registrationRequest.getPassword());
-
-        UserCredentials userCredentials = new UserCredentials(
-            registrationRequest.getUserName(),
-            registrationRequest.getEmail(),
-            encodedPassword
-            );
-
-        newUser.setCredentials(userCredentials);
-        userCredentials.setUserInformation(newUser);
         
-        
-        
-        //Asociate credentials
-        userRepository.save(newUser);
     }
 }
