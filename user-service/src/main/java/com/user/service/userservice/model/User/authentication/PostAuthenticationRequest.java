@@ -8,10 +8,6 @@ public class PostAuthenticationRequest {
         return authenticationInfo;
     }
 
-    public void setAuthenticationInfo(AuthenticationModel authenticationInfo) {
-        this.authenticationInfo = authenticationInfo;
-    }
-
 }
 
 

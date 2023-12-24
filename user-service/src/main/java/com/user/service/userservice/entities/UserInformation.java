@@ -43,12 +43,17 @@ public class UserInformation {
     @Transient
     @Column(name = "creation_date")
     private Date creationDate;
+    
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "userinformation_id")
     private UserCredentials credentials;
 
     
+    
+
+    public UserInformation() {
+    }
 
     public UserInformation(@NotBlank(message = "fullName cannot be empty") String fullName,
             @NotBlank(message = "birthdate cannot be empty") String birthdate,

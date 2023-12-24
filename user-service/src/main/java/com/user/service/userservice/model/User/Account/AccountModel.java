@@ -1,19 +1,39 @@
 package com.user.service.userservice.model.User.Account;
-import java.sql.Date;
 
 
 public class AccountModel {
-    private String id;
     private String username;
     private String fullName;
-    private Date birthdate;
+    private String birthdate;
     private String address;
     private String gender;
 
-
-    public String getId() {
-        return id;
+    
+    
+    public void setUsername(String username) {
+        this.username = username;
     }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public void setBirthdate(String birthdate) {
+        this.birthdate = birthdate;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public AccountModel() {
+    }
+
+
 
     public String getUsername() {
         return username;
@@ -21,7 +41,7 @@ public class AccountModel {
     public String getFullName() {
         return fullName;
     }
-    public Date getBirthdate() {
+    public String getBirthdate() {
         return birthdate;
     }
     public String getAddress() {
@@ -36,6 +56,7 @@ public class AccountModel {
     public String toString() {
         return "AccountModel []";
     }
+
 
     
 }

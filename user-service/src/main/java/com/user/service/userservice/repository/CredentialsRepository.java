@@ -15,4 +15,9 @@ public interface CredentialsRepository extends JpaRepository<UserCredentials, In
         value = "SELECT u.hash_password FROM user_credentials u WHERE u.email = :email", 
         nativeQuery = true)
     String getHashPassword(@Param("email") String email);
+
+    @Query(
+        value = "SELECT u.userinformation_id FROM user_credentials u WHERE u.username = :username", 
+        nativeQuery = true)
+    int getUserInformationId(@Param("username") String username);
 }
