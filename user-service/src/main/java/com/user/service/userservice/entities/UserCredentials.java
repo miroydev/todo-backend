@@ -45,6 +45,12 @@ public class UserCredentials {
         HashPassword = hashPassword;
     }
 
+    
+
+    public UserCredentials() {
+    }
+
+
 
     public void setUserInformation(UserInformation userInformation) {
         this.userInformation = userInformation;

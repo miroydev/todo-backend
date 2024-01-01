@@ -8,10 +8,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotBlank;
 
-import java.sql.Date;
+
+import java.sql.Timestamp;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 
@@ -40,9 +43,10 @@ public class UserInformation {
     @Column(name = "user_gender")
     private String gender;
     
-    @Transient
-    @Column(name = "creation_date")
-    private Date creationDate;
+    //@Transient
+    @CreationTimestamp
+    @Column(name = "creation_date", nullable = false)
+    private Timestamp creationDate;
     
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

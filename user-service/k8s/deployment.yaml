@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: userservice-deployment
+  labels:
+    app: userservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: userservice
+  template:
+    metadata:
+      labels:
+        app: userservice
+    spec:
+      containers:
+      - name: userservice
+        image: todo-local/userservice
+        envFrom:
+        - configMapRef:
+            name: userservice-config
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080

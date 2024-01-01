@@ -45,10 +45,8 @@ public class AccountService implements IAccountService {
 
         try{
             int userIndormationId = credentialsRepository.getUserInformationId(accounInformation.getUserName());
-            System.out.println("SIUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
             System.out.println(userIndormationId);
             UserInformation userInformation = userRepository.findById(userIndormationId).orElse(null);
-            System.out.println("SIUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
             if (userInformation != null){
                 accountModel.setUsername(accounInformation.getUserName());
                 accountModel.setFullName(userInformation.getFullName());
